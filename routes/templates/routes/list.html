@@ -1,29 +1,27 @@
 {% extends 'base.html' %}
 
 {% block title %}
-List of cities
+List of routes
 {% endblock %}
 
 {% block content %}
-<h1>List of cities</h1>
+<h1>List of routes</h1>
 <div class="row">
     <div class="col-md-8 mx-auto my-2">
         <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Travel time</th>
+        </tr>
         {% for object in page_obj %}
             <tr>
-                <td>
-                    <a href="{% url 'cities:detail' pk=object.pk %}">{{object.name}}</a>
-                </td>
-                <td>
-                    <a href="{% url 'cities:update' pk=object.pk %}">
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                    </a>
-                </td>
-                <td>
-                    <a href="{% url 'cities:delete' pk=object.pk %}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </a>
-                </td>
+                <td><a href="{% url 'detail' pk=object.pk %}">{{object.name}}</a></td>
+                <td>{{object.from_city}}</td>
+                <td>{{object.to_city}}</td>
+                <td>{{object.travel_times}}</td>
+                
             </tr> 
         {% endfor %}
         </table>
@@ -58,13 +56,6 @@ List of cities
       </li>
     </ul>
 </nav>
-<div class="row">
-    <div class="col-md-4">     <!--   уменьшаем размер формы -->
-        <form action="{% url 'cities:create' %}" method="post"> {% csrf_token %}
-            {{ form.as_p}}
-            <input type="submit" value="Add city">
-        </form> 
-    </div>
-</div>
+
 
 {% endblock %}
